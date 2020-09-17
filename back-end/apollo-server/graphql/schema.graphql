@@ -1,0 +1,124 @@
+type Query {
+  hello: String!
+  allUsers: [User]
+  allProduct: [Product]
+  getUser(_id: ID!): User
+  getProduct(_id: ID!): Product
+  emailVerify(email: String!): Boolean!
+  itemDetail(tokenID: Int): Product
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: Userupdate): User
+  deleteUser(_id: ID!): User
+  createProduct(input: ProductInput): Product
+  updateProduct(_id: ID!, input: Productupdate): Product
+  deleteProduct(_id: ID!): Product
+  login(email: String! , password: String!) : AuthPayload
+  signIn(input: SignIn): AuthPayload
+  signUp(input: SignUp): User
+  productEnroll(input: ProductEnroll): Product
+}
+
+type AuthPayload {
+  user: User
+  token: String
+}
+
+type User {
+  _id: ID
+  email: String
+  password: String
+  name: String
+  homeAddress: String
+  klayAddress: String
+  klayPrivateKey: String
+  likeProducts: [String]
+  isAdmin: Boolean
+}
+
+input SignIn {
+  email: String!
+  password: String!
+}
+
+input SignUp {
+  email: String!
+  password: String!
+  name: String!
+  homeAddress: String!
+  klayAddress: String!
+  klayPrivateKey: String!
+  isAdmin: Boolean
+}
+
+input UserInput {
+  email: String!
+  password: String!
+  name: String!
+  address: String
+  pubKey: String
+  like: String
+}
+
+
+input Userupdate {
+  email: String!
+  password: String!
+  like: String
+}
+
+type Product {
+  _id: ID!
+  name: String
+  price: String
+  img: String
+  seller: String
+  brand: String
+  size: String
+  serial: String
+  description: String
+  validator: String
+  tokenID: Int
+  likeNum: Int
+  isSell: Boolean
+  buyer: String
+}
+
+input ProductEnroll {
+  name: String
+  price: String
+  img: String
+  seller: String
+  brand: String
+  size: String
+  serial: String
+  description: String
+  validator: String
+  tokenID: Int
+  likeNum: Int
+  isSell: Boolean
+}
+
+input ProductInput {
+  name: String!
+  price: String!
+  img: String!
+  seller: String
+  description: String
+  color: String
+  date: String
+  validator: String
+  manufac: String
+  }
+
+input Productupdate {
+  price: String!
+  img: String!
+  description: String
+  validator: String
+  manufac: String
+  like: Int
+  }
+

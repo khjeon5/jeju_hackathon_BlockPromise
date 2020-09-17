@@ -1,0 +1,17 @@
+query itemDetail($tokenID: Int!) {
+  itemDetail(tokenID: $tokenID) {
+    name
+    price
+    img
+    seller
+    brand
+    size
+    serial
+    description
+    validator
+    tokenID
+    likeNum
+    isSell
+    buyer
+  }
+}

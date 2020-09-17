@@ -1,0 +1,5 @@
+mutation signup($email: String!, $password: String!, $name: String!, $homeAddress: String!, $klayAddress: String!, $klayPrivateKey: String!) {
+  signUp(input: { email: $email, password: $password, name: $name, homeAddress: $homeAddress, klayAddress: $klayAddress, klayPrivateKey: $klayPrivateKey }) {
+    name
+  }
+}

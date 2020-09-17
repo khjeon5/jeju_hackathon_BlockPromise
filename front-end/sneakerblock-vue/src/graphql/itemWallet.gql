@@ -1,0 +1,8 @@
+query itemWallet($tokenID: Int!) {
+  itemDetail(tokenID: $tokenID) {
+    name
+    price
+    img
+    tokenID
+  }
+}

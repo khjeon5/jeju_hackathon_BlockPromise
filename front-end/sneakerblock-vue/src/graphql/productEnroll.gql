@@ -1,0 +1,44 @@
+mutation productEnroll(
+  $name: String
+  $price: String
+  $img: String
+  $seller: String
+  $brand: String
+  $size: String
+  $serial: String
+  $description: String
+  $validator: String
+  $tokenID: Int
+  $likeNum: Int
+  $isSell: Boolean
+) {
+  productEnroll(
+    input: {
+      name: $name
+      price: $price
+      img: $img
+      seller: $seller
+      brand: $brand
+      size: $size
+      serial: $serial
+      description: $description
+      validator: $validator
+      tokenID: $tokenID
+      likeNum: $likeNum
+      isSell: $isSell
+    }
+  ) {
+    name
+    price
+    img
+    seller
+    brand
+    size
+    serial
+    description
+    validator
+    tokenID
+    likeNum
+    isSell
+  }
+}
