@@ -7,6 +7,13 @@ export default class KlaytnService {
     //
   }
 
+  async getProductInfo(tokenId) {
+    const info = await getContractInstanceProducts()
+      .methods.getProduct(tokenId)
+      .call()
+    return info
+  }
+
   async saleProducts() {
     const allListIndex = await NFT.totalSupply()
     const list = []

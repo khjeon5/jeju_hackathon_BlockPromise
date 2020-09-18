@@ -6,7 +6,7 @@
     <v-col>
       <h5 class="text-center">{{ tokenBalance }} {{ tokenName }}</h5>
       <h5 class="text-center">{{ token17Balance }}</h5>
-      <h5 class="text-center">{{ saleList }}</h5>
+      <h5 class="text-center">{{ thisItemInfo }}</h5>
     </v-col>
   </v-row>
 </template>
@@ -22,6 +22,7 @@ export default {
       tokenBalance: '',
       token17Balance: '',
       saleList: '',
+      thisItemInfo: '',
     }
   },
   computed: {
@@ -36,6 +37,7 @@ export default {
     this.tokenBalance = await service.getKIP7Balance(this.userInfo.klayAddress)
     this.token17Balance = await service.getMySneakersList(this.userInfo.klayAddress)
     this.saleList = await service.saleProducts()
+    this.thisItemInfo = await service.getProductInfo(1)
   },
 }
 </script>
