@@ -81,7 +81,7 @@
 <script>
 import ENROLL from '@/graphql/productEnroll.gql'
 import { caver } from '@/klaytn/caver.js'
-import abi from '@/klaytn/deployedABIToken17.json'
+import abi from '@/klaytn/ProductsABI.json'
 const kip17Instance = new caver.klay.KIP17('0x0F3c4462f1c977dF3991e85b7913daF2A130c614')
 const kip17Contract = new caver.klay.Contract(abi, '0x0F3c4462f1c977dF3991e85b7913daF2A130c614')
 

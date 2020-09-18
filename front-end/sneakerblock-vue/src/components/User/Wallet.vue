@@ -9,10 +9,17 @@
       <v-card max-width="400" class="mx-auto" flat>
         <h4 class="mb-3">내 지갑 주소</h4>
         <v-text-field :value="userInfo.klayAddress" label="Address" outlined readonly></v-text-field>
-        <v-btn @click="tokenList">dsds</v-btn>
         <h4 class="mb-3">보유 토큰</h4>
-        <v-text-field :value="token + ' XKRW'" label="Token" outlined readonly></v-text-field>
+        <v-text-field :value="token7Balance + ' XKRW'" label="Token" outlined readonly></v-text-field>
         <h4 class="mb-3">보유 스니커즈</h4>
+        <v-row justify="center" class="mx-1">
+          <v-col v-for="sneaker in sneakers" :key="sneaker[0]" cols="6">
+            <h6 class="text-center mt-3">고유번호: {{ sneaker[0] }}</h6>
+            <h4 class="text-center mt-3">{{ sneaker[2] }}</h4>
+            <h4 class="text-center mt-3">판매여부: {{ selling(sneaker[4]) }}</h4>
+            {{ sneaker }}
+          </v-col>
+        </v-row>
 
         <v-row justify="center" class="mx-1">
           <v-col v-for="tok in token" :key="tok" cols="6">
@@ -54,31 +61,37 @@ import { mapState } from 'vuex'
 import { caver } from '@/klaytn/caver.js'
 const kip17Instance = new caver.klay.KIP17('0x0F3c4462f1c977dF3991e85b7913daF2A130c614')
 import ITEMDETAIL from '@/graphql/itemDetail.gql'
+import klaytnService from '@/klaytn/klaytnService'
+const service = new klaytnService()
 
 export default {
   data() {
     return {
-      address: '0x54dff6c456a84b2e35a454dff6c456a84b2e35a4',
+      address: '',
+      token7Balance: 0,
+      sneakers: [],
       token: [],
       itemInfo: [],
       tokenCount: 0,
-      ccc: 0,
-      sneakers: [
-        {
-          asd: 'asd',
-          ggg: 'ggg',
-        },
-        {
-          asd: 'asd211',
-          ggg: 'ggg222',
-        },
-      ],
     }
   },
   computed: {
     ...mapState(['userInfo']),
   },
   methods: {
+    async getMyToken7() {
+      this.token7Balance = await service.getKIP7Balance(this.userInfo.klayAddress)
+    },
+    async getMyToken17() {
+      this.sneakers = await service.getMySneakersList(this.userInfo.klayAddress)
+    },
+    selling(a) {
+      if (a === true) {
+        return '판매중'
+      } else {
+        return '안판매중'
+      }
+    },
     getToken17() {
       kip17Instance.balanceOf(this.userInfo.klayAddress).then(res => {
         this.tokenCount = parseInt(res, 10)
@@ -88,9 +101,6 @@ export default {
           })
         }
       })
-    },
-    tokenli() {
-      console.log(this.token[0])
     },
     tokenList() {
       for (let i = 0; i < this.tokenCount; i++) {
@@ -108,14 +118,10 @@ export default {
       }
     },
   },
-  created() {
-    this.getToken17()
-    // console.log('this.token.length: ', this.token)
-
-    this.tokenList()
-    // console.log(this.itemInfo)
+  async created() {
+    this.getMyToken7()
+    this.getMyToken17()
   },
-  beforeCreate() {},
 }
 </script>
 
