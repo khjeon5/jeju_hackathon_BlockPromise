@@ -3,7 +3,25 @@ import { caver, getContractInstanceToken7, getContractInstanceProducts, getContr
 //const agContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS)
 
 export default class KlaytnService {
-  constructor() {}
+  constructor() {
+    //
+  }
+
+  async saleProducts() {
+    const allListIndex = await NFT.totalSupply()
+    const list = []
+    for (let i = 0; i < allListIndex; i++) {
+      let imsi = await getContractInstanceProducts()
+        .methods.getProduct(i + 1)
+        .call()
+      if (imsi[4] === true) {
+        list.push(imsi)
+      } else {
+        continue
+      }
+    }
+    return list
+  }
 
   async getMySneakersList(adr) {
     const balance = await NFT.balanceOf(adr)
