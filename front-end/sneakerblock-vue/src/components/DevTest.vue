@@ -5,12 +5,12 @@
     </v-col>
     <v-col>
       <h5 class="text-center">{{ tokenBalance }} {{ tokenName }}</h5>
+      <h5 class="text-center">{{ token17Balance }}</h5>
     </v-col>
   </v-row>
 </template>
 
 <script>
-// import { getContractInstanceToken7 } from '@/klaytn/caver'
 import { mapMutations, mapState } from 'vuex'
 import klaytnService from '@/klaytn/klaytnService'
 
@@ -19,6 +19,7 @@ export default {
     return {
       tokenName: '',
       tokenBalance: '',
+      token17Balance: '',
     }
   },
   computed: {
@@ -31,6 +32,7 @@ export default {
     const service = new klaytnService()
     this.tokenName = await service.getKIP7Symbol()
     this.tokenBalance = await service.getKIP7Balance(this.userInfo.klayAddress)
+    this.token17Balance = await service.getMySneakersList(this.userInfo.klayAddress)
   },
 }
 </script>

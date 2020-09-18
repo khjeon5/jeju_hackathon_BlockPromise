@@ -15,6 +15,8 @@ const DEPLOYED_ADDRESS_TOKEN7 = '0x8C6dB9F1731f00aA262aaD3a969B9f965d426E07'
 const DEPLOYED_ADDRESS_PRODUCTS = '0x7bcceb4B76f75F99ab02641adAE4e066ecb0d0cD'
 const DEPLOYED_ADDRESS_TRADE = '0x9eBd6322c3e23719F03b0076c34c03Cfe0cA9630'
 
+const NFT = new caver.klay.KIP17(DEPLOYED_ADDRESS_PRODUCTS)
+
 const getContractInstanceToken7 = () => {
   const contractInstance = deployedABIToken7 && DEPLOYED_ADDRESS_TOKEN7 && new caver.klay.Contract(deployedABIToken7, DEPLOYED_ADDRESS_TOKEN7)
   return contractInstance
@@ -30,4 +32,4 @@ const getContractInstanceTrade = () => {
   return contractInstance
 }
 
-export { caver, getContractInstanceToken7, getContractInstanceProducts, getContractInstanceTrade }
+export { caver, getContractInstanceToken7, getContractInstanceProducts, getContractInstanceTrade, NFT }

@@ -1,10 +1,22 @@
-import { caver, getContractInstanceToken7, getContractInstanceProducts, getContractInstanceTrade } from './caver'
+import { caver, getContractInstanceToken7, getContractInstanceProducts, getContractInstanceTrade, NFT } from './caver'
 
 //const agContract = new caver.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS)
 
 export default class KlaytnService {
-  constructor() {
-    //
+  constructor() {}
+
+  async getMySneakersList(adr) {
+    const balance = await NFT.balanceOf(adr)
+    const list = []
+    for (let i = 0; i < balance; i++) {
+      let imsi = await NFT.tokenOfOwnerByIndex(adr, i)
+      let imsi2 = parseInt(imsi)
+      let imsi3 = await getContractInstanceProducts()
+        .methods.getProduct(imsi2)
+        .call()
+      list.push(imsi3)
+    }
+    return list
   }
 
   async getKIP7Balance(adr) {
