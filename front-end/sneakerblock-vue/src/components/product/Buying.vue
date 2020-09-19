@@ -10,7 +10,7 @@
             <v-col cols="12">
               <v-row justify="center" class="mx-1 mt-12 mb-6">
                 <v-card class="max-auto" flat>
-                  <v-img :src="require(`../../assets/sneakers/${this.$route.params.id}.jpg`)"></v-img>
+                  <v-img :src="require(`@/assets/sneakers/${this.$route.params.id}.jpg`)"></v-img>
                 </v-card>
               </v-row>
             </v-col>

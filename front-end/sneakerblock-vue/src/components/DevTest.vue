@@ -13,6 +13,9 @@
       <h2>{{ key }}</h2>
       <h5 class="text-center">{{ thisItemInfo }}</h5>
     </v-col>
+    <input ref="imageInput" type="file" hidden @change="onChangeImages" />
+    <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
+    <v-img v-if="imageUrl" :src="imageUrl"></v-img>
   </v-row>
 </template>
 
@@ -33,6 +36,7 @@ export default {
       thisItemInfo: '',
       balanccc: '',
       key: '',
+      imageUrl: null,
     }
   },
   computed: {
@@ -40,6 +44,14 @@ export default {
   },
   methods: {
     ...mapMutations('wallet', ['setKlaytn']),
+    onClickImageUpload() {
+      this.$refs.imageInput.click()
+    },
+    onChangeImages(e) {
+      console.log(e.target.files)
+      const file = e.target.files[0]
+      this.imageUrl = URL.createObjectURL(file)
+    },
     async test() {
       await service.t()
     },

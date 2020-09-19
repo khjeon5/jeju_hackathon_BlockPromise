@@ -10,14 +10,17 @@
             <v-col cols="12">
               <v-row justify="center" class="mx-1 mt-12 mb-6">
                 <v-card class="max-auto" flat>
-                  <v-img :src="itemImg"></v-img>
+                  <v-img v-if="imageUrl === null" :src="itemImg"></v-img>
+                  <v-img v-else :src="imageUrl"></v-img>
                 </v-card>
               </v-row>
             </v-col>
             <v-col cols="12">
               <v-row justify="center" class="mx-1">
                 <v-card class="max-auto mb-12" flat color="grey lighten-3">
-                  <v-file-input :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="Pick an image" prepend-icon="mdi-camera" label="upload image"></v-file-input>
+                  <!-- <v-file-input :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="Pick an image" prepend-icon="mdi-camera" label="upload image"></v-file-input> -->
+                  <input ref="imageInput" type="file" hidden @change="onChangeImages" />
+                  <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
                 </v-card>
               </v-row>
             </v-col>
@@ -86,6 +89,7 @@ export default {
       sizeVal: null,
       itemExplainVal: null,
       itemImg: 'https://dummyimage.com/300x300.jpg?text=input%20image',
+      imageUrl: null,
     }
   },
   created() {
@@ -95,6 +99,14 @@ export default {
     ...mapState(['userInfo']),
   },
   methods: {
+    onClickImageUpload() {
+      this.$refs.imageInput.click()
+    },
+    onChangeImages(e) {
+      console.log(e.target.files)
+      const file = e.target.files[0]
+      this.imageUrl = URL.createObjectURL(file)
+    },
     enrollItem() {
       console.log(typeof true)
       this.$apollo
