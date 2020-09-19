@@ -1,3 +1,3 @@
-# ShoeBox-Apollo-Server
+# ShoeBox-Back-End
 
-스니커블록 아폴로 서버
+슈박스 백엔드
