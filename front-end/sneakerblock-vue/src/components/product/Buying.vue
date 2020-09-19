@@ -10,14 +10,14 @@
             <v-col cols="12">
               <v-row justify="center" class="mx-1 mt-12 mb-6">
                 <v-card class="max-auto" flat>
-                  <v-img :src="require(`../../assets/sneakers/${itemInfo.img}`)"></v-img>
+                  <v-img :src="require(`../../assets/sneakers/1.jpg`)"></v-img>
                 </v-card>
               </v-row>
             </v-col>
             <v-col cols="12" class="text-center">
-              <h1 class="mb-3">{{ itemInfo.name }}</h1>
-              <h2 class="mb-1">가격: {{ itemInfo.price }} XKRW</h2>
-              <h2 class="mb-1">판매자: {{ itemInfo.seller }}</h2>
+              <h1 class="mb-3">{{ thisItemInfo[2] }}</h1>
+              <h2 class="mb-1">가격: {{ thisItemInfo[1] }} XKRW</h2>
+              <h2 class="mb-1">판매자: {{ pan }}</h2>
             </v-col>
           </v-row>
         </v-container>
@@ -36,12 +36,12 @@
             <v-col cols="12">
               <h2 class="mb-3">결제 정보</h2>
               <h3>내 지갑 주소 : {{ userInfo.klayAddress }}</h3>
-              <h3>내 토큰 잔액 : 0 XKRW</h3>
-              <h3>결제 금액 : {{ itemInfo.price }} XKRW</h3>
+              <h3>내 토큰 잔액 : {{ token7Balance }} XKRW</h3>
+              <h3>결제 금액 : {{ thisItemInfo[1] }} XKRW</h3>
             </v-col>
             <v-col cols="12">
               <v-row justify="end" class="mx-1">
-                <v-btn color="teal darken-3 white--text" @click="signTran">결제</v-btn>
+                <v-btn color="teal darken-3 white--text" @click="purchaseItem">결제</v-btn>
               </v-row>
             </v-col>
           </v-row>
@@ -54,7 +54,8 @@
 <script>
 import ITEMDETAIL from '@/graphql/itemDetail.gql'
 import { mapState } from 'vuex'
-import { caver } from '@/klaytn/caver'
+import klaytnService from '@/klaytn/klaytnService'
+const service = new klaytnService()
 
 export default {
   data() {
@@ -63,12 +64,28 @@ export default {
       myaddress: '0x19687755badea96d0d6f485ad7264a4af56879b9',
       mypriv: '0x186c1d383964f07df3d76421dad200a9e105b3d3599ad9c5fbbf97cb0b260d2c',
       toaddress: '0x8e505cd541178775eabbdaadc9834e3cf7f1a355',
+      thisItemInfo: '',
+      pan: '디비 판매자로 바꿔야됨',
+      token7Balance: '',
     }
   },
   computed: {
     ...mapState(['userInfo']),
   },
   methods: {
+    async getMyToken7() {
+      this.token7Balance = await service.getKIP7Balance(this.userInfo.klayAddress)
+    },
+    async getItemInfo() {
+      this.thisItemInfo = await service.getProductInfo(this.$route.params.id)
+    },
+    async purchaseItem() {
+      await service.keyringSet(this.userInfo.klayAddress, this.userInfo.klayPrivateKey)
+
+      await service.payToken7(this.userInfo.klayAddress, this.thisItemInfo[1], this.thisItemInfo[0])
+
+      await service.keyringExpire(this.userInfo.klayAddress)
+    },
     itemDetail() {
       this.$apollo
         .query({
@@ -81,30 +98,32 @@ export default {
           this.itemInfo = result.data.itemDetail
         })
     },
-    async signTran() {
-      // console.log(this.sendKlay)
-      const { rawTransaction: senderRawTransaction } = await caver.klay.accounts.signTransaction(
-        {
-          type: 'FEE_DELEGATED_VALUE_TRANSFER',
-          from: this.myaddress,
-          to: this.toaddress,
-          gas: '300000',
-          value: caver.utils.toPeb('0.1', 'KLAY'),
-        },
-        this.mypriv,
-      )
-      console.log(senderRawTransaction)
-      this.$socket.emit('data', senderRawTransaction)
-      this.$socket.on('data', function(data) {
-        console.log('Received data from server: ' + data)
-      })
-      this.$socket.on('disconnect', function() {
-        console.log('Connection closed')
-      })
-    },
+    // async signTran() {
+    //   // console.log(this.sendKlay)
+    //   const { rawTransaction: senderRawTransaction } = await caver.klay.accounts.signTransaction(
+    //     {
+    //       type: 'FEE_DELEGATED_VALUE_TRANSFER',
+    //       from: this.myaddress,
+    //       to: this.toaddress,
+    //       gas: '300000',
+    //       value: caver.utils.toPeb('0.1', 'KLAY'),
+    //     },
+    //     this.mypriv,
+    //   )
+    //   console.log(senderRawTransaction)
+    //   this.$socket.emit('data', senderRawTransaction)
+    //   this.$socket.on('data', function(data) {
+    //     console.log('Received data from server: ' + data)
+    //   })
+    //   this.$socket.on('disconnect', function() {
+    //     console.log('Connection closed')
+    //   })
+    // },
   },
-  created() {
-    this.itemDetail()
+  async created() {
+    this.getItemInfo()
+    this.getMyToken7()
+    // this.itemDetail()
     this.$socket.on('connect', function() {
       console.log('connected')
     })
