@@ -113,6 +113,7 @@ export default {
         .mutate({
           mutation: ENROLL,
           variables: {
+            seller : this.userInfo.klayAddress,
             name: this.modelNameVal,
             price: this.priceVal,
             img: this.itemImg,

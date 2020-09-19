@@ -16,11 +16,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in desserts" :key="item.name">
-              <td>{{ item.name }}</td>
-              <td>검증중</td>
-              <td>50000</td>
-              <td>250</td>
+            <tr v-for="item in allProduct" :key="item._id">
+              <td>{{ item.seller }}</td>
+              <td>{{ item.name}}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.size }}</td>
               <td><v-btn color="teal darken-3 white--text" @click="enrollProduct(item)">진품</v-btn></td>
             </tr>
           </tbody>
@@ -30,6 +30,7 @@
   </v-row>
 </template>
 <script>
+import gql from 'graphql-tag'
 import klaytnService from '@/klaytn/klaytnService'
 const service = new klaytnService()
 
@@ -66,6 +67,21 @@ export default {
   },
   async created() {
     //
+  },
+  apollo: {
+  allProduct: gql`
+      query {
+        allProduct {
+          _id
+          name
+          price
+          img
+          tokenID
+          size
+          seller
+        }
+      }
+    `,
   },
 }
 </script>
