@@ -11,6 +11,7 @@
       <v-btn color="teal darken-3 white--text" @click="bal">bal</v-btn>
       <v-btn color="teal darken-3 white--text" @click="test">테스트</v-btn>
       <h2>{{ key }}</h2>
+      <h5 class="text-center">{{ thisItemInfo }}</h5>
     </v-col>
   </v-row>
 </template>
@@ -21,6 +22,7 @@ import klaytnService from '@/klaytn/klaytnService'
 import { caver } from '@/klaytn/caver'
 // const FT = new caver.klay.KIP7('0x8C6dB9F1731f00aA262aaD3a969B9f965d426E07')
 const service = new klaytnService()
+
 export default {
   data() {
     return {
@@ -55,7 +57,7 @@ export default {
     this.tokenBalance = await service.getKIP7Balance(this.userInfo.klayAddress)
     this.token17Balance = await service.getMySneakersList(this.userInfo.klayAddress)
     this.saleList = await service.saleProducts()
-    // this.thisItemInfo = await service.purchaseToken7(1)
+    this.thisItemInfo = await service.paidSneakers(this.userInfo.klayAddress)
   },
 }
 </script>
