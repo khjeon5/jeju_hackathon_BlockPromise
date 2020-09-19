@@ -7,6 +7,18 @@ export default class KlaytnService {
     //
   }
 
+  async productEnrollConfirm(adr, seller, salePrice, productName, size) {
+    await getContractInstanceProducts()
+      .methods.enrollProduct(seller, salePrice, productName, size)
+      .send({ from: adr, gas: 500000 })
+      .then(function(receipt) {
+        console.log(receipt)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
+
   async tradeConfirm(tokenId, adr) {
     await getContractInstanceProducts()
       .methods.confirmTrade(tokenId)
