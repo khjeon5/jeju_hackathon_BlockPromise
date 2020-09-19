@@ -71,6 +71,7 @@ export default {
       await service.keyringSet(this.userInfo.klayAddress, this.userInfo.klayPrivateKey)
       await service.tradeConfirm(tokenId, this.userInfo.klayAddress)
       await service.keyringExpire(this.userInfo.klayAddress)
+      alert('판매되었습니다. 제품을 배송해주세요.')
     },
     changeUserType() {
       this.userinfo.type = '검증자'

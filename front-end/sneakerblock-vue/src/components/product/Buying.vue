@@ -85,6 +85,8 @@ export default {
       await service.payToken7(this.userInfo.klayAddress, this.thisItemInfo[1], this.thisItemInfo[0])
 
       await service.keyringExpire(this.userInfo.klayAddress)
+
+      alert('주문되었습니다.')
     },
     itemDetail() {
       this.$apollo

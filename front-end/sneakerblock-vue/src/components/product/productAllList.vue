@@ -12,7 +12,7 @@
             <v-img :src="require(`@/assets/sneakers/${product[0]}.jpg`)"></v-img>
           </v-container>
           <h4 class="text-center mt-3">{{ product[2] }}</h4>
-          <h3 class="text-center mb-3">₩ {{ product[1] }}</h3>
+          <h4 class="text-center mb-3">₩ {{ product[1] }}</h4>
         </v-card>
       </v-row>
     </v-col>

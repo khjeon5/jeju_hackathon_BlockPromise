@@ -18,7 +18,7 @@
           <tbody>
             <tr v-for="item in allProduct" :key="item._id">
               <td>{{ item.seller }}</td>
-              <td>{{ item.name}}</td>
+              <td>{{ item.name }}</td>
               <td>{{ item.price }}</td>
               <td>{{ item.size }}</td>
               <td><v-btn color="teal darken-3 white--text" @click="enrollProduct(item)">진품</v-btn></td>
@@ -31,6 +31,7 @@
 </template>
 <script>
 import gql from 'graphql-tag'
+import { mapState } from 'vuex'
 import klaytnService from '@/klaytn/klaytnService'
 const service = new klaytnService()
 
@@ -39,37 +40,26 @@ export default {
   data() {
     return {
       selected: [],
-      desserts: [
-        {
-          name: '지드래곤에디션',
-          calories: 'ㅁㄴㅇㅁ',
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-        },
-      ],
       enroll: '',
     }
   },
   computed: {
-    //
+    ...mapState(['userInfo']),
   },
   methods: {
-    async enrollProduct(index) {
-      console.log(index)
-      console.log('service: ', service)
+    async enrollProduct(it) {
+      const pr = parseInt(it.price)
+      await service.keyringSet(this.userInfo.klayAddress, this.userInfo.klayPrivateKey)
+      await service.productEnrollConfirm(this.userInfo.klayAddress, it.seller, pr, it.name, it.size)
+      await service.keyringExpire(this.userInfo.klayAddress)
+      alert('등록이 되었습니다.')
     },
   },
   async created() {
     //
   },
   apollo: {
-  allProduct: gql`
+    allProduct: gql`
       query {
         allProduct {
           _id
