@@ -132,11 +132,11 @@
       <v-spacer></v-spacer>
       <div class="mb-6">
         <h1><strong>SHOE BOX</strong></h1>
-        <h4><strong>with Blockchain Playground</strong></h4>
+        <h4><strong>with JEJU Blockchain Hackathon</strong></h4>
       </div>
       <v-spacer></v-spacer>
       <div class="mb-6">
-        서울 마포구 공덕동 254-5, 공덕역 4번 출구, 신용보증기금빌딩 15층 알파룸 <br />
+        제주특별자치도 제주시 이도이동 중앙로 217 <br />
         <strong>Copyright © 2020 SHOE BOX. All Rights Reserved.</strong>
       </div>
       <v-spacer></v-spacer>

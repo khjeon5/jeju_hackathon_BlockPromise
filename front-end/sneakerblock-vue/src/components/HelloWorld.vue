@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-carousel height="300" hide-delimiter-background show-arrows-on-hover>
-      <v-carousel-item v-for="(item, i) in items" :key="i" src="./1.jpg" reverse-transition="fade-transition" transition="fade-transition">
+      <v-carousel-item v-for="(item, i) in items" :key="i" src="@/assets/img/1.jpg" reverse-transition="fade-transition" transition="fade-transition">
         <v-row class="fill-height" align="center" justify="center">
           <div class="display-2 font-weight-bold white--text">SHOE BOX</div>
         </v-row>

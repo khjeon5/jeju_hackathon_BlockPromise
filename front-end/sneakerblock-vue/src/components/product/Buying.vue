@@ -10,7 +10,7 @@
             <v-col cols="12">
               <v-row justify="center" class="mx-1 mt-12 mb-6">
                 <v-card class="max-auto" flat>
-                  <v-img :src="require(`../../assets/sneakers/1.jpg`)"></v-img>
+                  <v-img :src="require(`../../assets/sneakers/${this.$route.params.id}.jpg`)"></v-img>
                 </v-card>
               </v-row>
             </v-col>
@@ -65,7 +65,7 @@ export default {
       mypriv: '0x186c1d383964f07df3d76421dad200a9e105b3d3599ad9c5fbbf97cb0b260d2c',
       toaddress: '0x8e505cd541178775eabbdaadc9834e3cf7f1a355',
       thisItemInfo: '',
-      pan: '디비 판매자로 바꿔야됨',
+      pan: '지드래곤',
       token7Balance: '',
     }
   },
@@ -98,27 +98,6 @@ export default {
           this.itemInfo = result.data.itemDetail
         })
     },
-    // async signTran() {
-    //   // console.log(this.sendKlay)
-    //   const { rawTransaction: senderRawTransaction } = await caver.klay.accounts.signTransaction(
-    //     {
-    //       type: 'FEE_DELEGATED_VALUE_TRANSFER',
-    //       from: this.myaddress,
-    //       to: this.toaddress,
-    //       gas: '300000',
-    //       value: caver.utils.toPeb('0.1', 'KLAY'),
-    //     },
-    //     this.mypriv,
-    //   )
-    //   console.log(senderRawTransaction)
-    //   this.$socket.emit('data', senderRawTransaction)
-    //   this.$socket.on('data', function(data) {
-    //     console.log('Received data from server: ' + data)
-    //   })
-    //   this.$socket.on('disconnect', function() {
-    //     console.log('Connection closed')
-    //   })
-    // },
   },
   async created() {
     this.getItemInfo()

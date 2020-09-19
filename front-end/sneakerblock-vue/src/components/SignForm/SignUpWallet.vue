@@ -10,7 +10,6 @@
         <v-form ref="form">
           <v-text-field :value="userKlayAddress" label="Klaytn-Address" filled readonly></v-text-field>
           <v-textarea label="Private-Key" filled auto-grow readonly :value="userKlayPrivateKey"></v-textarea>
-          <!-- <v-textarea label="Public-Key" filled auto-grow readonly :value="createAC.accountKey"></v-textarea> -->
         </v-form>
       </v-card>
     </v-col>
@@ -18,7 +17,6 @@
 </template>
 
 <script>
-// import { caver } from '@/klaytn/caver'
 import { mapState } from 'vuex'
 export default {
   data() {
