@@ -3,7 +3,6 @@
     <v-col cols="12" class="text-center">
       <h2>관심상품</h2>
     </v-col>
-    <!-- <productAllList></productAllList> -->
   </v-row>
 </template>
 

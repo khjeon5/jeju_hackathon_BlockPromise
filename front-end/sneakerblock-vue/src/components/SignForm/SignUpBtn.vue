@@ -44,17 +44,7 @@ export default {
   },
   methods: {
     ...mapMutations(['next', 'before', 'join', 'toSignin', 'createAccount']),
-    // toSignin() {
-    //   this.$apollo.mutate({
-    //     mutation: CREATE_USER_MUTATION,
-    //     variables: {
-    //       address: this.createAC.address,
-    //       pubkey: this.createAC.privateKey,
-    //     },
-    //   })
-    // },
     signUpComplete() {
-      // console.log([this.userEmail, this.userPassword, this.userName, this.userHomeAddress, this.userKlayAddress, this.userKlayPrivateKey])
       this.$apollo
         .mutate({
           mutation: SIGNUP,
@@ -66,16 +56,8 @@ export default {
             klayAddress: this.userKlayAddress,
             klayPrivateKey: this.userKlayPrivateKey,
           },
-          // update: (a, { data: { b } }) => {
-          //   console.log(a)
-          //   console.log(b)
-          //   return b
-          // },
         })
         .then(result => {
-          // console.log(result)
-          // console.log(result.data.signUp)
-          // console.log(result.data.signUp.name)
           this.$store.state.signUpName = result.data.signUp.name
         })
       this.join()

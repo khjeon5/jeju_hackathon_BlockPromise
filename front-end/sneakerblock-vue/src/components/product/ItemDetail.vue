@@ -10,7 +10,7 @@
             <v-col cols="12">
               <v-row justify="center" class="mx-1 mt-12 mb-6">
                 <v-card class="max-auto" flat>
-                  <v-img :src="require(`../../assets/sneakers/1.jpg`)"></v-img>
+                  <v-img :src="require(`@/assets/sneakers/${this.$route.params.id}.jpg`)"></v-img>
                 </v-card>
               </v-row>
             </v-col>
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-// import ITEMDETAIL from '@/graphql/itemDetail.gql'
 import { mapState } from 'vuex'
 import klaytnService from '@/klaytn/klaytnService'
 const service = new klaytnService()
@@ -78,8 +77,8 @@ export default {
       favoriteheart: false,
       itemInfo: {},
       thisItemInfo: '',
-      sul: '디비설명으로 바꿔야됨',
-      pan: '디비 판매자로 바꿔야됨',
+      sul: '신발팝니다~',
+      pan: '지드래곤',
     }
   },
   methods: {
@@ -89,25 +88,12 @@ export default {
     favoriteclick() {
       this.favoriteheart = !this.favoriteheart
     },
-    // getItemDetail() {
-    //   this.$apollo
-    //     .query({
-    //       query: ITEMDETAIL,
-    //       variables: {
-    //         tokenID: parseInt(this.$route.params.id, 10),
-    //       },
-    //     })
-    //     .then(result => {
-    //       this.itemInfo = result.data.itemDetail
-    //     })
-    // },
   },
   computed: {
     ...mapState(['userInfo']),
   },
   async created() {
     this.getItemInfo()
-    // this.getItemDetail()
   },
 }
 </script>
