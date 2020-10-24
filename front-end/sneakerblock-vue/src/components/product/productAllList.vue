@@ -11,7 +11,9 @@
           <v-container class="mt-3">
             <v-img :src="require(`@/assets/sneakers/${product[0]}.jpg`)"></v-img>
           </v-container>
-          <h4 class="text-center mt-3">{{ product[2] }}</h4>
+          <div class="ml-3 mr-3">
+            <h4 class="text-center mt-3 text-truncate">{{ product[2] }}</h4>
+          </div>
           <h4 class="text-center mb-3">₩ {{ product[1] }}</h4>
         </v-card>
       </v-row>

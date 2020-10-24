@@ -79,6 +79,7 @@ export default {
       thisItemInfo: '',
       sul: '신발팝니다~',
       pan: '지드래곤',
+      KasAddress: '',
     }
   },
   methods: {
@@ -86,7 +87,13 @@ export default {
       this.thisItemInfo = await service.getProductInfo(this.$route.params.id)
     },
     getKasNftExUser() {
-      // 카스사용
+      this.$http
+        .get('/api', {
+          params: { tokenId: this.$route.params.id },
+        })
+        .then(res => {
+          this.KasAddress = res['data'][0]
+        })
     },
     favoriteclick() {
       this.favoriteheart = !this.favoriteheart
@@ -97,6 +104,7 @@ export default {
   },
   async created() {
     this.getItemInfo()
+    this.getKasNftExUser()
   },
 }
 </script>
