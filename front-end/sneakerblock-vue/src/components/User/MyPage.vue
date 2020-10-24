@@ -50,7 +50,6 @@
 import { mapState } from 'vuex'
 import klaytnService from '@/klaytn/klaytnService'
 const service = new klaytnService()
-
 export default {
   data() {
     return {
@@ -69,9 +68,9 @@ export default {
   methods: {
     async confirm(tokenId) {
       await service.keyringSet(this.userInfo.klayAddress, this.userInfo.klayPrivateKey)
+      alert('판매되었습니다.')
       await service.tradeConfirm(tokenId, this.userInfo.klayAddress)
       await service.keyringExpire(this.userInfo.klayAddress)
-      alert('판매되었습니다. 제품을 배송해주세요.')
     },
     changeUserType() {
       this.userinfo.type = '검증자'
