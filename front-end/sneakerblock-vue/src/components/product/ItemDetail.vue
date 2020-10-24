@@ -85,6 +85,9 @@ export default {
     async getItemInfo() {
       this.thisItemInfo = await service.getProductInfo(this.$route.params.id)
     },
+    getKasNftExUser() {
+      // 카스사용
+    },
     favoriteclick() {
       this.favoriteheart = !this.favoriteheart
     },

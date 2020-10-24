@@ -6,8 +6,10 @@ import vuetify from './plugins/vuetify'
 import { createProvider } from './vue-apollo'
 import VueSocketIO from 'vue-socket.io'
 import SocketIO from 'socket.io-client'
+import axios from 'axios'
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
 
 Vue.use(
   new VueSocketIO({
